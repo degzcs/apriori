@@ -1,4 +1,8 @@
 *.o
+*.so
+.idea
+.ruby-version
+ext/intern.h
 *.bundle
 *.log
 .DS_Store

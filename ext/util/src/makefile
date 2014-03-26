@@ -9,7 +9,7 @@
 #-----------------------------------------------------------------------
 CC      = gcc
 CFBASE  = -ansi -Wall -pedantic $(ADDFLAGS)
-CFLAGS  = $(CFBASE) -DNDEBUG -O3
+CFLAGS  = -fPIC $(CFBASE) -DNDEBUG -O3
 # CFLAGS  = $(CFBASE) -g
 # CFLAGS  = $(CFBASE) -g -DSTORAGE $(ADDINC)
 # ADDINC  = -I../../misc/src
