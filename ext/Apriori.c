@@ -19,21 +19,21 @@ VALUE method_ap_do_apriori(VALUE self, VALUE rargv);
 // The initialization method for this module
 void Init_apriori_ext() {
 	Apriori = rb_define_module("Apriori");
-	rb_define_method(Apriori, "do_test_apriori",   method_do_test_apriori, 0);	
+	rb_define_method(Apriori, "do_test_apriori",   method_do_test_apriori, 0);
 	rb_define_method(Apriori, "do_apriori", method_ap_do_apriori, 1);
 }
 
 VALUE method_do_test_apriori(VALUE self) {
-    char *arg0 = "apriori";
-    char *arg1 = "test/sample.txt";
-    char *arg2 = "test/results.txt";
+	int x = 10;
+    char *arg0 = (char*) "apriori";
+    char *arg1 = (char*)"test/sample.txt";
+    char *arg2 = (char*)"test/results.txt";
     char *argv[3];
     argv[0] = arg0;
     argv[1] = arg1;
     argv[2] = arg2;
 
     do_apriori(3, argv);
-	int x = 10;
 	return INT2NUM(x);
 }
 
@@ -72,15 +72,15 @@ VALUE method_ap_do_apriori(VALUE self, VALUE rargv) {
   int i = 0;
   VALUE ary_value;
   // get the number of arguments
-  int ruby_argv_length = RARRAY(rargv)->len;
+  int ruby_argv_length = RARRAY_LEN(rargv);
   // allocate enough memory for a pointer to each char *
   argv = malloc(ruby_argv_length * sizeof(*argv));
 
   // copy the ruby array of strings to a c "array of strings"
   // todo, turn this into a function
   while((ary_value = rb_ary_shift(rargv)) != Qnil) {
-    argv[i] = malloc(strlen(STR2CSTR(ary_value)) + 1);
-    strcpy(argv[i], STR2CSTR(ary_value));
+    argv[i] = malloc(strlen(StringValuePtr(ary_value)) + 1);
+    strcpy(argv[i], StringValuePtr(ary_value));
     i++;
   }
   do_apriori(i, argv);
